@@ -6,24 +6,36 @@
     <title>AJAX Tracing</title>
 </head>
 <body>
-    <button onclick="startAjaxTracing()">Start AJAX Tracing</button>
+    <button id="startTracingButton">Start AJAX Tracing</button>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('startTracingButton').addEventListener('click', startAjaxTracing);
+        });
+
         function startAjaxTracing() {
             console.log('Starting AJAX tracing with delay of 0');
-
             // Create a new XMLHttpRequest object
             var xhr = new XMLHttpRequest();
+            // URL for the AJAX request
+            var url = 'https://jsonplaceholder.typicode.com/posts/1';
 
-            // Configure it: GET-request for the URL /example
-            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', true);
+            // Configure it: GET-request for the URL
+            xhr.open('GET', url, true);
 
-            // Set up a function to handle the response
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) { // Request is complete
+            // Handle network errors
+            xhr.onerror = function () {
+                console.error('Network error occurred');
+            };
+
+            // Check for unsuccessful responses
+            xhr.onload = function () {
+                if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
                     console.log('AJAX request completed');
                     console.log('Status:', xhr.status);
                     console.log('Response:', xhr.responseText);
+                } else {
+                    console.error('AJAX request failed with status:', xhr.status);
                 }
             };
 

@@ -1,15 +1,8 @@
 const apiKey = '25f4d7e1160e7d181ce1748eb20f5d09';
-const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&appid=' + apiKey;
+const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
-async function getWeather() {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    console.log(data);
-}
-
-getWeather();
-
-async function getWeather() {
+async function getWeather(city = 'London') {
+    const apiUrl = `${baseUrl}?q=${city}&appid=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
     displayWeather(data);
@@ -28,12 +21,10 @@ getWeather();
 
 function searchCity() {
     const city = document.getElementById('city-input').value;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    getWeather(apiUrl);
+    getWeather(city);
 }
 
-async function getWeather(apiUrl) {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    displayWeather(data);
-}
+document.getElementById('search-button').addEventListener('click', searchCity);
+
+// Initial weather data for London
+getWeather();
