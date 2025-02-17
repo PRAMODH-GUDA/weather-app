@@ -1,5 +1,8 @@
 {
   "devDependencies": {
-    "mocha": "^11.1.0"
+    "jsdom": "^26.0.0",
+    "mocha": "^11.1.0",
+    "node-fetch": "^3.3.2",
+    "sinon": "^19.0.2"
   }
 }
