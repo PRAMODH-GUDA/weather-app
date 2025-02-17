@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 describe('Application Test Suite', () => {
     it('should return true for true', () => {
         assert.strictEqual(true, true);
